@@ -1,0 +1,108 @@
+@media (min-width: 1600px) {
+	#main {
+		height: 75%;
+		width: 50%;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}
+@media (min-width: 992px) and (max-width: 1199px) {
+	#main {
+		width: 80%;
+	}
+}
+@media (min-width: 769px) and (max-width: 991px) {
+	#main {
+		width: 100%;
+	}
+}
+@media (min-width: 481px) and (max-width: 768px) {
+	#main {
+		width: 100%;
+	}
+	#digital {
+		float: none;
+		margin: 0;
+		padding: 30px;
+	}
+	#analog {
+		height: 550px;
+	}
+	#analog_clock_frame {
+		height: 450px;
+    	background-position: center;
+   		background-size: 450px;
+   		margin-left: 0;
+	}
+	#digital_clock_frame {
+		margin: 0 auto;
+	}
+	#hour_hand {
+		width: 24px;
+		height: 115px;
+		top: 27%;
+		left: 48%;
+    	background-size: 24px 115px ;
+	}
+	#minute_hand {
+		width: 20px;
+		height: 164px;
+		top: -10%;
+		left: 48.5%;
+    	background-size: 20px 164px;
+	}
+	#button_div {
+		margin: 100px 15px 15px 0;
+	}
+}
+@media (max-width: 480px) {
+	#main {
+		width: 100%;
+	}
+	#digital {
+		float: none;
+		margin: 0;
+		padding: 15px;
+	}
+	#analog {
+		height: 350px;
+	}
+	#analog_clock_frame {
+		height: 250px;
+    	background-position: center;
+   		background-size: 250px;
+   		margin-left: 0;
+	}
+	#digital_clock_frame {
+		margin: 0 auto;
+    	background-size: 225px 125px;
+	}
+	.num {
+		font-size: 3em;
+	}
+	#message_box p {
+		font-size: 2em;
+	}
+	#show_correct_answer, #new_game, #try_again {
+		font-size: 1.2em;
+	}
+	#hour_hand {
+		width: 14px;
+		height: 64px;
+		top: 27%;
+		left: 48%;
+    	background-size: 14px 64px ;
+	}
+	#minute_hand {
+		width: 12px;
+		height: 90px;
+		top: -10%;
+		left: 48.5%;
+    	background-size: 12px 90px;
+	}
+	#button_div {
+		margin: 15px 15px 15px 0;
+	}
+}

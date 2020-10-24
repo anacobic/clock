@@ -1,0 +1,191 @@
+html, body {
+	background-image: url("image/28649722-White-brick-wall-texture-or-background-Stock-Photo-wall.jpg");
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+  	-o-background-size: cover;
+  	background-size: cover;
+	height: 100%;
+	margin: 0;
+}
+header {
+	position: fixed;
+	top: 0px;
+	left: 0px;
+	width: 100%;
+
+	color: #CCC;
+	background-color: #333;
+	padding: 5px;
+}
+#main {
+	height: 100%;
+	width: 70%;
+	margin: 0 auto;
+}
+#digital {
+	float: right;
+	margin: 15px 15px 0 0;
+}
+#digital_clock_frame {
+	height: 125px;
+	width: 250px;
+    background-image: url('image/digital-clock.PNG');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 300px 175px;
+}
+@font-face {
+    font-family: "Clock font";
+    src: url('font/digital-7.ttf') format("truetype");
+}
+#time {
+	text-align: center;
+	font-family: "Clock font";
+	position: relative;
+	top:50%;
+	transform: translate(0, -50%);
+}
+.num {
+	display: inline;
+	color: #1afbff;
+	font-size: 4em;
+	text-shadow: 0 0 5px #1afbff;
+}
+#analog {
+	height: 600px;
+	width: 100%;
+}
+#analog_clock_frame {
+	position: relative;
+	top: 50%;
+	left: 50%;
+    transform: translate(-50%, -50%);
+	height: 550px;
+	width: 100%;
+	margin-left: 2.5%;
+    background-image: url('image/analog-clock.PNG');
+    background-repeat: no-repeat;
+    background-position: left center;
+    background-size: 550px;
+}
+.clock_hand {
+	position: relative;
+}
+#hour_hand {
+	width: 30px;
+	height: 140px;
+	top: 151px;
+	left: 260px;
+	background-image: url('image/hour.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 30px 140px ;
+}
+#minute_hand {
+	width: 24px;
+	height: 200px;
+	top: -54px;
+	left: 264px;
+	background-image: url('image/minute.png');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px 200px;
+}
+button {
+	font-family: Arial;
+	font-size: 1.5em;
+	font-weight: bold;
+	color: #b7feff;
+	padding: 5px 10px;
+	text-align: center;
+	border-radius: 5px;
+	background-color: #002d2e;
+	border: none;
+}
+#button_div {
+	position:relative;
+	top: 35%;
+	margin: 0 15px 15px 0;
+}
+#result_check_button, #new_game_main {
+	float: right;
+	margin-right: 15px;
+}
+#new_game_main {
+	display: none;
+}
+@font-face {
+    font-family: "Chalk font";
+    src: url('font/appleberry.ttf') format("truetype");
+}
+.result_check_form {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	width: 400px;
+	height: 300px;
+	max-width: 100%;
+	background-color: rgba(51, 51, 51, 0.8);
+	box-shadow: 0px 0px 10px #000;
+	visibility: hidden;
+}
+#result_check_reply {
+	margin: 4% auto;
+	position: relative;
+	top: 25px;
+}
+#show_correct_answer, #new_game, #try_again {
+	width: 80%;
+	position: relative;
+}
+#show_correct_answer {
+	top: 55px;
+	left: 10%;
+}
+#try_again {
+	top: 75px;
+	left: 10%;
+}
+#new_game {
+	top: 100px;
+	left: 10%;
+}
+.result{
+	font-family: 'Chalk font';
+	font-size: 4em;
+	color: #b7feff;
+	text-align: center;
+}
+#message_box {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	max-width: 100%;
+	background-color: rgba(51, 51, 51, 0.8);
+	box-shadow: 0px 0px 10px #000;
+	text-align: center;
+	padding: 15px 30px 10px 30px;
+}
+#message_box p {
+	font-family: 'Chalk font';
+	font-size: 3em;
+	font-weight: bold;
+	color: #b7feff;
+}
+p {
+	margin: 0;
+}
+footer {
+	position: fixed;
+	bottom: 0px;
+	left: 0px;
+	width: 100%;
+
+	color: #CCC;
+	background-color: #333;
+	padding: 5px;
+}
+

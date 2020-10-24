@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Učenje na sat</title>
+
+	<meta charset="utf-8">
+	<meta name="description" content="Učenje na anlogni sat">
+	<meta name="keywords" content="učenje, sat, analogni sat">
+	<meta name="author" content="Ana Čobić">
+	<meta name="image design" content="Aron Belsö">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+	<link rel="stylesheet" type="text/css" href="css/style.css">
+	<link rel="stylesheet" type="text/css" href="css/responsive.css">
+
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js"></script>
+  	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/utils/Draggable.min.js"></script>
+</head>
+</body>
+	<!--<header>
+	</header>-->
+	<div id="main">
+		<div id="digital" class="clock">
+			<div id="digital_clock_frame">
+				<div id="time">
+					<p id="hour_num" class="num"></p>
+					<p class="num">&nbsp:&nbsp</p>
+					<p id="minute_num" class="num"></p>
+				</div>
+			</div>
+		</div>
+		<div id="analog" class="clock">
+			<div id="analog_clock_frame">
+				<div id="hour_hand" class="clock_hand">
+				</div>
+				<div id="minute_hand" class="clock_hand">
+				</div>
+				<div id="button_div">
+					<button type="button" id="result_check_button">PROVJERI</button>
+					<button type="button" id="new_game_main">NOVA IGRA</button>
+				</div>
+			</div>
+		</div>
+		<div class="result_check_form" id="result_false">
+			<div id="result_check_reply">
+				<p class="result">NETOČNO</p>
+			</div>
+			<button type="button" id="show_correct_answer">PRIKAŽI RJEŠENJE</button>
+			<button type="button" id="try_again">POKUŠAJ PONOVO</button>
+		</div>
+		<div class="result_check_form" id="result_true">
+			<div id="result_check_reply">
+				<p class="result">TOČNO</p>
+			</div>
+			<button type="button" id="new_game">NOVA IGRA</button>
+		</div>
+		<div id="message_box">
+			<p>PODESI KAZALJKE</p>
+		</div>
+	</div>	
+	<!--<footer>
+	</footer>-->
+<script>
+	/*random time genration*/
+	function format_check(n) {
+    	return (n < 10) ? ("0" + n) : n;
+	}
+	var hour_num = (Math.random() * 23) | 0; 
+	var hour_num_display = format_check(hour_num);
+	document.getElementById("hour_num").innerHTML = hour_num_display;
+	var minute_num = (Math.random() * 59) | 0; 
+	var minute_num_display = format_check(minute_num);
+	document.getElementById("minute_num").innerHTML = minute_num_display;
+
+	/*hour hand rotatio*/
+    var hour_hand_rotation = document.getElementById("hour_hand");
+    TweenLite.set(hour_hand_rotation, {transformOrigin:"50% 90%", rotation:90});
+    Draggable.create(hour_hand_rotation, {
+        type:"rotation",
+    	});
+    
+	/*minute hand rotation*/
+    var minute_hand_rotation = document.getElementById("minute_hand"); 
+    TweenLite.set(minute_hand_rotation, {transformOrigin:"50% 95%"});
+    Draggable.create(minute_hand_rotation, {
+        type:"rotation",
+        });
+
+    function hour_result_check() {
+    	var t = 10;
+    	var x = hour_num % 12;
+    	var positive_rotation = x * 30;
+    	var positive_rotation_lower = positive_rotation - t;
+    	var positive_rotation_upper = positive_rotation + t;
+    	var negative_rotation = (x - 12) * 30;
+    	var negative_rotation_lower = negative_rotation - t;
+    	var negative_rotation_upper = negative_rotation + t;
+    	var hour_hand_rotation_degree = Draggable.get(hour_hand_rotation).rotation % 360;
+    	if ( ( positive_rotation_lower<hour_hand_rotation_degree && hour_hand_rotation_degree<positive_rotation_upper) || (negative_rotation_lower<hour_hand_rotation_degree && hour_hand_rotation_degree<negative_rotation_upper) ) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+
+    function minute_result_check(t) {
+    	var t = 5;
+    	var x = minute_num;
+    	var positive_rotation = x * 6;
+    	var positive_rotation_lower = positive_rotation - t;
+    	var positive_rotation_upper = positive_rotation + t;
+    	var negative_rotation = (x - 60) * 6;
+    	var negative_rotation_lower = negative_rotation - t;
+    	var negative_rotation_upper = negative_rotation + t;
+    	var minute_hand_rotation_degree = Draggable.get(minute_hand_rotation).rotation % 360;
+    	if ( ( positive_rotation_lower<minute_hand_rotation_degree && minute_hand_rotation_degree<positive_rotation_upper) || (negative_rotation_lower<minute_hand_rotation_degree && minute_hand_rotation_degree<negative_rotation_upper) ) {
+    		return true;
+    	}
+    	else {
+    		return false;
+    	}
+    }
+
+    /*button reaction on mouse events*/
+    function button_move() {
+	  	var move = new TimelineLite();
+		move.to(this, 0.4, {y:-10, ease:Bounce.easeOut}).to(this, 0.2, {y:0});
+	}
+
+	var button1 = document.getElementById("result_check_button");
+    button1.onmouseover = button_move;
+    button1.onclick = function() {
+    	TweenLite.to(this, 0.5, {backgroundColor:"#222"})
+    	this.disabled = true;
+    	Draggable.get('#hour_hand').disable();
+    	Draggable.get('#minute_hand').disable();
+    	var form;
+    	var hour_result = hour_result_check();
+    	var minute_result = minute_result_check();
+    	if ( hour_result == true && minute_result == true){
+    		form = document.getElementById("result_true");
+    	}
+    	else {
+    		form = document.getElementById("result_false");
+    	}
+    	TweenLite.to(form, 0.5, {visibility:"visible", scale:1});
+	}
+
+	function close_form() {
+		button1.disabled = false;
+		TweenLite.to(button1, 0.3, {backgroundColor:"#002d2e"})
+  		Draggable.get("#hour_hand").enable();
+  		Draggable.get("#minute_hand").enable();
+  		var form = document.getElementsByClassName("result_check_form");
+  		var close = new TimelineLite();
+		close.to(form, 0.3, {scale:0}).to(form, 0, {visibility:"hidden"});
+	}
+
+	function show_answer() {		
+		button1.style.display = 'none';
+		button5.style.display = 'inline-block';
+		
+  		var hour_degree = hour_num * 30;
+  		var minute_degree = minute_num * 6;
+  		TweenLite.to(hour_hand_rotation, 4, {rotation:hour_degree, ease:Bounce.easeOut});
+  		TweenLite.to(minute_hand_rotation, 4, {rotation:minute_degree, ease:Bounce.easeOut});
+	}
+
+	var button2 = document.getElementById("show_correct_answer");
+	button2.onmouseover = button_move;
+	button2.onclick = function() {
+		this.style.backgroundColor = "#222";
+		close_form();
+		show_answer();
+	}
+	
+	var game_count = 0;
+	var button3 = document.getElementById("try_again");
+	button3.onmouseover = button_move;
+	button3.onclick = function() {
+		this.style.backgroundColor = "#222";
+		close_form();
+  		TweenLite.to(this, 0, {backgroundColor:"#002d2e", delay:0.2})
+  		game_count = game_count + 1;
+  		if (game_count == 5) {
+  			show_answer()
+  		}
+	}
+
+	var button4 = document.getElementById("new_game");
+	button4.onmouseover = button_move;
+	button4.onclick = function() {
+		this.style.backgroundColor = "#222";
+		close_form();
+		location.reload();
+	}
+	
+	var button5 = document.getElementById("new_game_main");
+	button5.onmouseover = button_move;
+	button5.onclick = function() {
+		this.style.backgroundColor = "#222";
+		location.reload();
+	}
+	
+	window.onload = function() {
+		var msg = new TimelineLite();
+		msg.set('#message_box', {scale:0}).to('#message_box', 3, {scale:1}).to('#message_box', 1, {scale:0, delay:1}).to('#message_box', {visibility:"hidden"}); 
+	}
+</script>
+</body>
+</html>
